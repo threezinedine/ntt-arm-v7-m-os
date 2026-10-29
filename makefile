@@ -7,13 +7,6 @@ QEMU	= qemu-system-arm
 GHEX 	= ghex
 GDB		= gdb-multiarch
 
-C_FLAGS    		 = -mcpu=cortex-m3 -mthumb -Wall -O0 -ffreestanding
-DUMP_FLAGS 		 = -D -r
-LINK_FLAGS 		 = -T linker.ld -Map=$(KERNEL_MAP)
-QEMU_FLAGS 		 = -machine lm3s6965evb -cpu cortex-m3
-QEMU_DEBUG_FLAGS = -s -S
-GDB_FLAGS		 = -ex "target remote localhost:1234"
-
 SRC_DIR    = ./src
 BUILD_DIR  = ./build
 OBJECT_DIR = $(BUILD_DIR)/obj
@@ -28,7 +21,12 @@ KERNEL_ELF_NAME = kernel.elf
 KERNEL_ELF  	= $(BIN_DIR)/$(KERNEL_ELF_NAME)
 KERNEL_MAP		= $(MAP_DIR)/$(KERNEL_ELF_NAME).map
 
-KERNEL_BIN		= kernel.bin
+C_FLAGS    		 = -mcpu=cortex-m3 -mthumb -Wall -ffreestanding -g3
+DUMP_FLAGS 		 = -D -r
+LINK_FLAGS 		 = -T linker.ld -Map=$(KERNEL_MAP)
+QEMU_FLAGS 		 = -machine lm3s6965evb -cpu cortex-m3
+QEMU_DEBUG_FLAGS = -s -S
+GDB_FLAGS		 = -ex "target remote localhost:1234" -ex "layout src" -ex "file $(KERNEL_ELF)"
 
 .PHONY: all
 all: $(BUILD_DIR) $(KERNEL_ELF)

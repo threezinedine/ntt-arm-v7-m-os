@@ -1,8 +1,11 @@
 #include "common.h"
 
 #define SRAM_START 0x20000000
-#define SRAM_SIZE  0x1FFFFFFF
+#define SRAM_SIZE  (64 * 1024)
 #define STACK_TOP  ((SRAM_START) + (SRAM_SIZE) - 4)
+
+extern uint32_t _data_start;
+extern uint32_t _data_end;
 
 void Reset_Handler(void);
 void Default_Handler(void);
@@ -41,6 +44,15 @@ const uint32_t b = 23;
 
 void Reset_Handler(void)
 {
+	uint8_t* flash_data	 = (uint8_t*)&_data_start;
+	uint8_t* ram_data	 = (uint8_t*)SRAM_START;
+	uint32_t data_length = (uint32_t)&_data_end - (uint32_t)&_data_start;
+
+	for (uint32_t i = 0; i < data_length; ++i)
+	{
+		ram_data[i] = flash_data[i];
+	}
+
 	while (1)
 	{
 	}
