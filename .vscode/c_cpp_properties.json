@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/arm-none-eabi-gcc",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-gcc-arm",
+            "compilerArgs": [
+                "-mcpu=cortex-m3",
+                "-mthumb",
+                "-Wall",
+                "-O0",
+                "-ffreestanding"
+            ]
+        }
+    ],
+    "version": 4
+}

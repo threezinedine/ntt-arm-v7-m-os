@@ -1,0 +1,7 @@
+{
+    "editor.lineNumbers": "relative",
+    "[c]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "xaver.clang-format"
+    }
+}
