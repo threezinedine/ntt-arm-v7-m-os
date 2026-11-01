@@ -6,6 +6,8 @@
 
 extern uint32_t _data_start;
 extern uint32_t _data_end;
+extern uint32_t _bss_start;
+extern uint32_t _bss_end;
 
 void Reset_Handler(void);
 void Default_Handler(void);
@@ -41,6 +43,7 @@ uint32_t exception_handlers[ARCHITECTURE_SYSTEM_EXCEPTIONS_NUMBER + 1]
 
 int32_t		   a = 23;
 const uint32_t b = 23;
+uint32_t	   c;
 
 void Reset_Handler(void)
 {
@@ -51,6 +54,14 @@ void Reset_Handler(void)
 	for (uint32_t i = 0; i < data_length; ++i)
 	{
 		ram_data[i] = flash_data[i];
+	}
+
+	uint8_t* bss_data	= (uint8_t*)&_bss_start;
+	uint32_t bss_length = (uint32_t)&_bss_end - (uint32_t)&_bss_start;
+
+	for (uint32_t i = 0; i < bss_length; ++i)
+	{
+		bss_data[i] = 0;
 	}
 
 	while (1)
