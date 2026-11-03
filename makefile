@@ -7,8 +7,8 @@ QEMU	= qemu-system-arm
 GHEX 	= ghex
 GDB		= gdb-multiarch
 
-SRC_DIR    = ./src
-BUILD_DIR  = ./build
+SRC_DIR    = src
+BUILD_DIR  = build
 OBJECT_DIR = $(BUILD_DIR)/obj
 BIN_DIR    = $(BUILD_DIR)/bin
 MAP_DIR    = $(BUILD_DIR)/map
@@ -37,15 +37,15 @@ all: $(KERNEL_ELF)
 $(KERNEL_ELF): $(C_OBJ_FILES)
 	mkdir -p $(dir $(KERNEL_ELF))
 	mkdir -p $(dir $(KERNEL_BIN))
-	mkdir -p $(KERNEL_MAP)
+	mkdir -p $(dir $(KERNEL_MAP))
 	$(LD) $(LINK_FLAGS) $^ -o $@ 
 	$(OBJCOPY) -O binary $(KERNEL_ELF) $(KERNEL_BIN)
 
 $(OBJECT_DIR)/%.c.o: $(SRC_DIR)/%.c $(H_SRC_FILES)
 	mkdir -p $(dir $@)
-	mkdir -p $(DUMP_DIR)/$(notdir $@)
+	mkdir -p $(DUMP_DIR)/$(dir $(patsubst $(OBJECT_DIR)/%.c.o,%.c.o,$@))
 	$(CC) $(C_FLAGS) -c $< -o $@
-	$(OBJDUMP) $(DUMP_FLAGS) $@ > $(DUMP_DIR)/$(notdir $@).dump
+	$(OBJDUMP) $(DUMP_FLAGS) $@ > $(DUMP_DIR)/$(dir $(patsubst $(OBJECT_DIR)/%.c.o,%.c.o,$@))/$(notdir $@).dump
 
 show: $(KERNEL_ELF)
 	$(GHEX) $(KERNEL_BIN)
