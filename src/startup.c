@@ -9,6 +9,8 @@ extern uint32_t _data_end;
 extern uint32_t _bss_start;
 extern uint32_t _bss_end;
 
+extern void main(void);
+
 void Reset_Handler(void);
 void Default_Handler(void);
 void NMI_Handler(void) __attribute__((weak, alias("Default_Handler")));
@@ -64,9 +66,7 @@ void Reset_Handler(void)
 		bss_data[i] = 0;
 	}
 
-	while (1)
-	{
-	}
+	main();
 }
 
 void Default_Handler(void)

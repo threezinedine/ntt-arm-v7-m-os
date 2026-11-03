@@ -1,7 +1,11 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
-#define ARCHITECTURE_NAME "arm-v7-m"
+#define ARCHITECTURE_NAME					  "arm-v7-m"
 #define ARCHITECTURE_SYSTEM_EXCEPTIONS_NUMBER 15
+
+#define RTOS_TICK_RATE_HZ  (1000)
+#define CPU_CLOCK_RATE_HZ  (72 * 1000 * 1000)
+#define RELOAD_CLOCK_VALUE ((CPU_CLOCK_RATE_HZ / RTOS_TICK_RATE_HZ) - 1)
 
 #endif /* _CONFIG_H_ */
