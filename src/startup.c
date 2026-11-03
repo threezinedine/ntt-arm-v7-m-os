@@ -1,8 +1,5 @@
 #include "common.h"
-
-#define SRAM_START 0x20000000
-#define SRAM_SIZE  (64 * 1024)
-#define STACK_TOP  ((SRAM_START) + (SRAM_SIZE) - 4)
+#include "config.h"
 
 extern uint32_t _data_start;
 extern uint32_t _data_end;
@@ -42,10 +39,6 @@ uint32_t exception_handlers[ARCHITECTURE_SYSTEM_EXCEPTIONS_NUMBER + 1]
 		(uint32_t)PendSV_Handler,
 		(uint32_t)SysTick_Handler,
 };
-
-int32_t		   a = 23;
-const uint32_t b = 23;
-uint32_t	   c;
 
 void Reset_Handler(void)
 {

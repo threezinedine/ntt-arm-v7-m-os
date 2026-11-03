@@ -8,4 +8,12 @@
 #define CPU_CLOCK_RATE_HZ  (72 * 1000 * 1000)
 #define RELOAD_CLOCK_VALUE ((CPU_CLOCK_RATE_HZ / RTOS_TICK_RATE_HZ) - 1)
 
+#define KERNEL_STACK_SIZE (256)
+#define TASK_STACK_SIZE	  (128)
+#define RTOS_TASKS_COUNT  16
+
+#define SRAM_START 0x20000000
+#define SRAM_SIZE  (64 * 1024)
+#define STACK_TOP  ((SRAM_START) + (SRAM_SIZE) - 4)
+
 #endif /* _CONFIG_H_ */
