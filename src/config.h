@@ -16,4 +16,7 @@
 #define SRAM_SIZE  (64 * 1024)
 #define STACK_TOP  ((SRAM_START) + (SRAM_SIZE) - 4)
 
+#define SCB_CCR	  (*(volatile uint32_t*)0xE000ED14)
+#define SCB_SHCSR (*(volatile uint32_t*)0xE000ED24)
+
 #endif /* _CONFIG_H_ */

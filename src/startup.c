@@ -42,6 +42,10 @@ uint32_t exception_handlers[ARCHITECTURE_SYSTEM_EXCEPTIONS_NUMBER + 1]
 
 void Reset_Handler(void)
 {
+	// Enable unaligned address error
+	SCB_SHCSR |= (1UL << 18);
+	SCB_CCR |= (1UL << 3);
+
 	uint8_t* flash_data	 = (uint8_t*)&_data_start;
 	uint8_t* ram_data	 = (uint8_t*)SRAM_START;
 	uint32_t data_length = (uint32_t)&_data_end - (uint32_t)&_data_start;
