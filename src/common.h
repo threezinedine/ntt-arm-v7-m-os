@@ -3,6 +3,7 @@
 
 #include "config.h"
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdint.h>
 
 #endif /* _COMMON_H_ */

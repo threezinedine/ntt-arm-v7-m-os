@@ -1,3 +1,4 @@
+#include "common.h"
 #include "svc/svc.h"
 #include "tasks/tasks.h"
 
@@ -29,7 +30,7 @@ static void Add()
 
 		if (~(count & 1))
 		{
-			__syscall();
+			__syscall(TRAP_ID, NULL);
 		}
 	}
 }

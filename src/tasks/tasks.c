@@ -1,4 +1,6 @@
 #include "tasks.h"
+#include "common.h"
+#include "svc/svc.h"
 
 const task_control_block_id	 INVALID_TCB_ID = (task_control_block_id)-1;
 static task_control_block	 tasks[RTOS_TASKS_COUNT];
@@ -30,7 +32,7 @@ task_control_block_id task_create(task_function pFunc)
 		}
 	}
 
-	// TODO: Raise exeception
+	__syscall(PANIC_ID, NULL);
 
 out:
 	task_control_block* pTask = &tasks[free_id];
@@ -69,9 +71,9 @@ void task_run_default(task_control_block_id id)
 
 task_control_block* task_acquire(task_control_block_id id)
 {
-	if (task_check(id))
+	if (!task_check(id))
 	{
-		// TODO: raise error
+		__syscall(PANIC_ID, NULL);
 	}
 
 	return &tasks[id];
@@ -81,7 +83,7 @@ bool task_check(task_control_block_id id)
 {
 	if (id > RTOS_TASKS_COUNT)
 	{
-		// TODO: raise error
+		__syscall(PANIC_ID, NULL);
 	}
 
 	return tasks[id].state != TASK_STATE_EMPTY;
@@ -91,6 +93,6 @@ void task_destroy(task_control_block_id id)
 {
 	if (id > RTOS_TASKS_COUNT)
 	{
-		// TODO: raise error
+		__syscall(PANIC_ID, NULL);
 	}
 }
