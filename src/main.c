@@ -30,7 +30,7 @@ static void Add()
 
 		if (~(count & 1))
 		{
-			__syscall(TRAP_ID, NULL);
+			syscall(SYSCAL_PING);
 		}
 	}
 }

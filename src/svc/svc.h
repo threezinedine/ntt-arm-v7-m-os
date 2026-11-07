@@ -2,6 +2,7 @@
 #define _SVC_H_
 #include "common.h"
 
-extern void __syscall(uint32_t, void*);
+void panic();
+void syscall(uint32_t func);
 
 #endif // _SVC_H_

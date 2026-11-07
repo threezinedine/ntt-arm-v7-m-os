@@ -19,7 +19,6 @@
 #define SCB_CCR	  (*(volatile uint32_t*)0xE000ED14)
 #define SCB_SHCSR (*(volatile uint32_t*)0xE000ED24)
 
-#define PANIC_ID 0x00
-#define TRAP_ID	 0x80
+#define SYSCAL_PING 0x00
 
 #endif /* _CONFIG_H_ */

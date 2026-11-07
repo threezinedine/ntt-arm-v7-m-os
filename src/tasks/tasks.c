@@ -32,7 +32,7 @@ task_control_block_id task_create(task_function pFunc)
 		}
 	}
 
-	__syscall(PANIC_ID, NULL);
+	panic();
 
 out:
 	task_control_block* pTask = &tasks[free_id];
@@ -73,7 +73,7 @@ task_control_block* task_acquire(task_control_block_id id)
 {
 	if (!task_check(id))
 	{
-		__syscall(PANIC_ID, NULL);
+		panic();
 	}
 
 	return &tasks[id];
@@ -83,7 +83,7 @@ bool task_check(task_control_block_id id)
 {
 	if (id > RTOS_TASKS_COUNT)
 	{
-		__syscall(PANIC_ID, NULL);
+		panic();
 	}
 
 	return tasks[id].state != TASK_STATE_EMPTY;
@@ -93,6 +93,6 @@ void task_destroy(task_control_block_id id)
 {
 	if (id > RTOS_TASKS_COUNT)
 	{
-		__syscall(PANIC_ID, NULL);
+		panic();
 	}
 }
