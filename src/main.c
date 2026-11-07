@@ -1,4 +1,4 @@
-#include "systick/systick.h"
+#include "svc/svc.h"
 #include "tasks/tasks.h"
 
 static uint32_t count = 0;
@@ -26,6 +26,11 @@ static void Add()
 	while (1)
 	{
 		count += 1;
+
+		if (~(count & 1))
+		{
+			__syscall();
+		}
 	}
 }
 
