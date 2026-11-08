@@ -12,8 +12,26 @@ extern void		set_control_register(uint32_t);
 extern void		set_psp(uint32_t);
 extern void		to_user_space(uint32_t);
 
+#define SYSTICK_BASE (0xE000E010UL)
+#define SYST_CSR	 (*(volatile uint32_t*)(SYSTICK_BASE + 0x00))
+#define SYST_RVR	 (*(volatile uint32_t*)(SYSTICK_BASE + 0x04))
+#define SYST_CVR	 (*(volatile uint32_t*)(SYSTICK_BASE + 0x08))
+
+#define SYST_CSR_ENABLE	   (1UL << 0)
+#define SYST_CSR_TICKINT   (1UL << 1)
+#define SYST_CSR_CLKSOURCE (1UL << 2)
+
+static uint32_t g_systick = 0;
+
 void task_init()
 {
+	// Disable counter
+	SYST_CSR = 0;
+
+	SYST_RVR = RELOAD_CLOCK_VALUE & 0x00FFFFFF;
+	SYST_CVR = 0;
+
+	SYST_CSR = SYST_CSR_ENABLE | SYST_CSR_TICKINT | SYST_CSR_CLKSOURCE;
 }
 
 void task_shutdown()
@@ -95,4 +113,9 @@ void task_destroy(task_control_block_id id)
 	{
 		panic();
 	}
+}
+
+void SysTick_Handler(void)
+{
+	g_systick++;
 }

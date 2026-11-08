@@ -16,6 +16,7 @@ void HardFault_Handler(void)
 
 void main(void)
 {
+	task_init();
 	task_control_block_id task1 = task_create(Add);
 	task_control_block_id task2 = task_create(Sub);
 
