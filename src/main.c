@@ -2,7 +2,7 @@
 #include "svc/svc.h"
 #include "tasks/tasks.h"
 
-static uint32_t count = 0;
+static int32_t count = 0;
 
 static void Add(void);
 static void Sub();
@@ -40,6 +40,6 @@ static void Sub()
 {
 	while (1)
 	{
-		count += 1;
+		count -= 1;
 	}
 }
